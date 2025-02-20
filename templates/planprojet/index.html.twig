@@ -1,0 +1,177 @@
+{% extends 'base.html.twig' %}
+    {% block title %}Add plans{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+
+
+    <style>
+
+            /* Masquer l'input de fichier réel */
+        .custom-file-input {
+            display: none;
+        }
+
+        /* Style du bouton "+" personnalisé */
+        .custom-file-button {
+            display: inline-block;
+            margin-left: 15px;
+            width: 100px;
+            height: 50px;
+            background-color: #007bff; /* Bleu foncé */
+            color: #fff;
+            font-size: 30px;
+            text-align: center;
+            line-height: 50px;
+            border-radius: 10px;
+            cursor: pointer;
+            border: none;
+            transition: background-color 0.3s ease;
+        }
+
+        /* Effet de survol du bouton */
+        .custom-file-button:hover {
+            background-color: #0056b3; /* Bleu foncé plus sombre */
+        }
+
+        /* Optionnel : Ajouter une icône plus (+) dans le bouton */
+        .custom-file-button:before {
+            content: '+';
+            font-size: 30px;
+            font-weight: bold;
+        }
+
+        /* Arrière-plan gris pour les fichiers ajoutés */
+        .plans-section ul li {
+            background-color: #f0f0f0;  /* Gris clair */
+            padding: 10px;
+            margin: 5px 0;
+            border-radius: 5px;
+        }
+
+        .plans-section ul li a {
+            color: #0066cc;  /* Bleu pour les liens */
+            text-decoration: none;
+        }
+
+        .plans-section ul li a:hover {
+            text-decoration: underline;  /* Surlignage du lien au survol */
+        }
+
+        /* Style pour les formulaires et champs */
+        .form-control {
+            background-color: #f0f0f0;  /* Fond gris clair pour les inputs */
+            border-color: #ccc; /* Bordure grise */
+            color: #333; /* Texte sombre */
+        }
+
+        .form-control:focus {
+            border-color: #007bff;  /* Bordure bleu foncé au focus */
+            box-shadow: 0 0 5px rgba(12, 83, 160, 0.5);  /* Ombre bleue au focus */
+        }
+
+        /* Style pour le bouton "Ajouter" */
+        .add-plan-form button[type="submit"] {
+            background-color: #007bff;  /* Bleu foncé */
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+
+        /* Effet de survol du bouton "Ajouter" */
+        .add-plan-form button[type="submit"]:hover {
+            background-color: #0056b3;  /* Bleu foncé plus sombre */
+        }
+
+        /* Style pour les liens de téléchargement des fichiers */
+        .plans-section ul li a {
+            color: #0066cc; /* Bleu clair pour les liens */
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        /* Pour les liens au survol */
+        .plans-section ul li a:hover {
+            color: #0056b3;  /* Bleu plus foncé au survol */
+            text-decoration: underline;  /* Souligner au survol */
+        }
+
+
+    </style>
+
+
+{% endblock %}
+{% block navbar_links %}
+    <li class="nav-item">
+        <a class="nav-link" href="{{ path('app_laab', {'id': app.session.get('user_id') | default(0)}) }}">Home</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="{{ path('app_logout') }}">Logout</a>
+    </li>
+    <li class="nav-item"></li>
+{% endblock %}
+{% block body %}
+<h1>project plans : {{ projet.nom ?? 'Nom inconnu' }}</h1>  
+
+<h2>Existing plans</h2>
+<div class="plans-section">
+    <ul>
+        {% for plan in plans %}
+            <li class="list-group-item">
+                <span>Type : {{ plan.type }} | Version : {{ plan.version }}</span>
+                
+                {% if not plan.fichiers.isEmpty() %}
+                    <ul>
+                        {% for fichier in plan.fichiers %}
+                            <li><a href="{{ asset('uploads/' ~ fichier.nomFichier) }}" target="_blank">Voir le fichier {{ fichier.nomFichier }}</a></li>
+                         {% endfor %}
+                    </ul>
+                {% else %}
+                    <p>No files associated with this plan</p>
+                {% endif %}
+                 <!-- Bouton de suppression avec confirmation -->
+                <form action="{{ path('supprimer_plan', {'projetId': projet.id, 'planId': plan.id}) }}" method="post" style="display:inline;">
+                    <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this plan? This action is irreversible.')">
+                        supprimer
+                    </button>
+                </form>
+            </li>
+        {% else %}
+            <p>No plans found for this project.</p>
+        {% endfor %}
+    </ul>
+</div>
+
+<h2>Add a new plan</h2>
+<div class="add-plan-form">
+    {{ form_start(form) }}
+        <div class="form-group">
+            {{ form_label(form.type) }}
+            {{ form_widget(form.type, {'attr': {'class': 'form-control'}}) }}
+        </div>
+
+        <div class="form-group">
+            {{ form_label(form.version) }}
+            {{ form_widget(form.version, {'attr': {'class': 'form-control'}}) }}
+        </div>
+
+        <div class="form-group">
+            <label for="fichier">Select a folder</label>
+                <!-- Le bouton personnalisé -->
+            <label class="custom-file-button" for="{{ form.fichiers.vars.id }}"></label>
+                <!-- Placeholder pour l'instruction -->
+
+                <!-- L'input réel est caché -->
+            {{ form_widget(form.fichiers, {'attr': {'style': 'display:none'}}) }}
+        </div>
+
+        <button type="submit" class="btn btn-success">Add</button>
+    {{ form_end(form) }}
+</div>
+
+
+{% endblock %}

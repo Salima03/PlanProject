@@ -1,0 +1,104 @@
+{% extends 'base.html.twig' %}
+    {% block title %}Gestion des Projets Civils{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('css/laab.css') }}">
+{% endblock %}
+{% block navbar_links %}
+    <li class="nav-item">
+        <a class="nav-link" href="{{ path('app_laab', {'id': app.session.get('user_id') | default(0)}) }}">Home</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="{{ path('app_logout') }}">Logout</a>
+    </li>
+    <li class="nav-item"></li>
+{% endblock %}
+
+
+{% block body %}
+
+<!-- Affichage des messages flash -->
+{% for label, messages in app.flashes %}
+    {% for message in messages %}
+        <div class="alert alert-{{ label }} alert-dismissible fade show" role="alert">
+            {{ message }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    {% endfor %}
+{% endfor %}
+
+
+<div class="container mt-5">
+        <p class="text-center">Easily manage your civil projects and plans.</p>
+</div>
+<!-- Contenu principal -->
+    <div class="container mt-5">
+    
+    <h1>List of Projects</h1>
+
+    <table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for projet in projets %}
+            <tr>
+                <td>
+                    <a href="{{ path('projet_plans', {'id': projet.id}) }}" class="text-decoration-none text-primary">
+                        {{ projet.id }}
+                    </a>
+                </td>
+                <td>{{ projet.nom }}</td>
+                <td>
+                    <!-- Bouton Détails -->
+                        <button class="btn btn-info btn-sm" data-bs-toggle="collapse" data-bs-target="#details-{{ projet.id }}">
+                            Détails
+                        </button>
+                    <!-- Bouton Modifier -->
+                        <a href="{{ path('edit_projet', {'id': projet.id}) }}" class="btn btn-warning btn-sm">
+                            Modifier
+                        </a>
+                    <!-- Bouton supprimer --> 
+                        <form action="{{ path('delete_projet', {'id': projet.id}) }}" method="post" style="display:inline;">
+                            <button onclick="return confirm('Are you sure you want to delete this project? This action is irreversible.')" type="submit" class="btn btn-danger btn-sm">
+                                Supprimer
+                            </button>
+                        </form>
+                </td>
+            </tr>
+            <!-- Détails du projet cachés -->
+                <tr id="details-{{ projet.id }}" class="collapse">
+                    <td colspan="3">
+                        <p><strong>Description :</strong> {{ projet.description }}</p>
+                        <p><strong>start date :</strong> {{ projet.dateDebut|date('Y-m-d') }}</p>
+                        <p><strong>end date :</strong> {{ projet.dateFin|date('Y-m-d') }}</p>
+                        <p><strong>number :</strong> {{ projet.numero }}</p>
+                    </td>
+                </tr>
+        {% else %}
+            <tr>
+                <td colspan="7" class="text-center">No projects found</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+     <div class="text-center mt-4">
+            <a href="{{ path('ajout_projet') }}" class="btn btn-primary">add a project</a>
+        </div>
+</div>
+    
+
+
+
+
+
+    
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+{% endblock %}

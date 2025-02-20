@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>{% block title %}Gestion des Projets Civils{% endblock %}</title>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+        <link rel="stylesheet" href="{{ asset('css/laab.css') }}">
+        
+        {% block stylesheets %}
+        <!-- Placez ici vos styles CSS supplémentaires spécifiques à chaque page -->
+        {% endblock %}
+    </head>
+    <body>
+
+        <!-- Navbar (Présente dans toutes les pages) -->
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="{{ path('app_laab', {'id': app.session.get('user_id') | default(0)}) }}">PlanProject</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto">
+                        {% block navbar_links %}
+                            <!-- Les liens par défaut ici si besoin -->
+                        {% endblock %}
+                        
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+
+        <!-- Contenu Principal (Spécifique à chaque page) -->
+        <div class="container mt-5">
+            {% block body %}{% endblock %}
+        </div>
+
+
+    
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+        
+        {% block javascripts %}
+        <!-- Placez ici vos scripts JavaScript supplémentaires spécifiques à chaque page -->
+        {% endblock %}
+
+    </body>
+</html>

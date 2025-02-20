@@ -1,0 +1,194 @@
+/* Global Styles */
+body {
+    font-family: "Arial", sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4; /* Simule le béton clair */
+    color: #333;
+    line-height: 1.6; /* Espacement entre les lignes */
+}
+
+/* Titres principaux */
+h1, h3 {
+    color: #0e4d92; /* Couleur acier */
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+}
+
+/* Paragraphes */
+p {
+    color: #444; /* Gris légèrement plus foncé pour une meilleure visibilité */
+    font-size: 16px;
+    margin-bottom: 20px;
+}
+
+/* Liens */
+a {
+    color: #0e4d92; /* Bleu acier */
+    text-decoration: none;
+    font-weight: bold;
+}
+
+a:hover {
+    text-decoration: underline;
+    color: #093d73; /* Bleu plus foncé au survol */
+}
+
+/* Zone sensible au survol */
+.hover-zone {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 50px;
+    background: transparent; /* Invisibilité initiale */
+    z-index: 10;
+}
+
+/* Navbar masquée par défaut */
+.navbar {
+    position: fixed;
+    top: -100px; /* Cache la navbar au-dessus de l'écran */
+    left: 0;
+    right: 0;
+    background-color: #0e4d92; /* Couleur bleu acier */
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    transition: top 0.3s ease-in-out; /* Animation pour un affichage fluide */
+}
+
+/* Liste des liens */
+.navbar ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    gap: 15px;
+}
+
+.navbar li {
+    display: inline;
+}
+
+.navbar a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.navbar a:hover {
+    text-decoration: underline;
+}
+
+/* Afficher la navbar lorsqu'on survole la zone */
+.hover-zone:hover + .navbar {
+    top: 0; /* Fait descendre la navbar */
+}
+
+/* Page Header */
+.page-header {
+    height: 50vh;
+    background: url('../img/tech1.png') center / cover no-repeat; /* Plan technique en fond */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    text-align: center;
+    position: relative;
+    box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.5); /* Ombre intérieure pour un effet dramatique */
+}
+
+.page-header h1 {
+    z-index: 1;
+    font-size: 3rem; /* Augmentation de la taille */
+    font-weight: bold;
+    margin-bottom: 10px;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7); /* Ajout d'ombres pour le contraste */
+}
+
+.page-header p {
+    z-index: 1;
+    font-size: 1.4rem; /* Taille augmentée */
+    font-weight: 300; /* Texte léger */
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+}
+
+/* Conteneur */
+.container {
+    padding: 20px;
+    max-width: 800px; /* Plus large pour plus de contenu */
+    margin: -30px auto 20px;
+    background-color: white; /* Fond blanc pour le contenu */
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Card */
+.card {
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+}
+
+.card h3 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #0e4d92; /* Couleur acier */
+}
+
+/* Form Controls */
+.form-control {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 15px;
+    border: 1px solid #bbb; /* Bordure plus douce */
+    border-radius: 6px;
+    font-size: 16px;
+}
+
+/* Boutons */
+.btn {
+    display: block;
+    width: 100%;
+    padding: 12px;
+    background-color: #0e4d92;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.btn:hover {
+    background-color: #093d73;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+}
+
+/* Alertes */
+.alert {
+    padding: 12px;
+    margin-bottom: 15px;
+    border-radius: 5px;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.alert-danger {
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+}
+
+.alert-success {
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+}

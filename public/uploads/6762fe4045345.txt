@@ -1,0 +1,34 @@
+le cout pour creer une application touristique 
+le theme 
+home 
+menu 
+contenu
+
+
+
+home 
+contenu
+les choses a faire au maroc (evenement , les espaces touristique(parcs,musées..),les celebre espace shopping, eating out (Italienne, Japonaise, Mexicaine, Américaine),culture marocaine, indrive prix )
+match d'aujourd'hui (stade , localisation, time ,condition files ) my reservation 
+les bit marqués annonces
+contact admin(bouton d'action: email, telephone ..)
+feed back user (entre user admin privé )
+language
+aide
+
+
+logo
+l'ecran de lancement 
+icone d'app 
+
+
+
+publication : directement au public ou en version beta(choisir le cible)
+
+
+
+marketing :
+prb que l'app resoudre , comment attendre ces personne 
+
+name 
+Path Finder

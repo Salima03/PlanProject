@@ -1,0 +1,64 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Register{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+
+<style>
+        /* Ajout d'espacement entre le label et l'input */
+        .chp label {
+            display: block;
+            margin-bottom: 5px; /* Espacement entre le label et l'input */
+            font-weight: bold;
+        }
+
+        /* Ajout d'espacement entre les lignes du formulaire */
+        .chp {
+            margin-bottom: 15px; /* Espacement entre les blocs (ligne) */
+        }
+
+        /* Facultatif: Ajout d'un peu de style pour le bouton */
+        button.btn {
+            margin-top: 10px; /* Espacement au-dessus du bouton */
+        }
+    </style>
+
+{% endblock %}
+
+
+{% block navbar_links %}
+    <li class="nav-item">
+        <a class="nav-link" href="{{ path('app_laab', {'id': app.session.get('user_id') | default(0)}) }}">Home</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="{{ path('app_login') }}">Sign in</a>
+    </li>
+    <li class="nav-item"></li>
+{% endblock %}
+
+{% block body %}
+    <h1>Register</h1>
+<div class="form-container">
+    {{ form_start(registrationForm) }}
+        <div class="chp">
+            {{ form_label(registrationForm.username) }}
+            {{ form_widget(registrationForm.username) }}
+            {{ form_errors(registrationForm.username) }}
+        </div>
+        <div class="chp">
+            {{ form_label(registrationForm.email) }}
+            {{ form_widget(registrationForm.email) }}
+            {{ form_errors(registrationForm.email) }}
+        </div>
+        <div class="chp">
+            {{ form_label(registrationForm.plainPassword) }}
+            {{ form_widget(registrationForm.plainPassword) }}
+            {{ form_errors(registrationForm.plainPassword) }}
+        </div>
+        <button class="btn btn-lg btn-primary" type="submit">
+        Register
+    </button>
+    {{ form_end(registrationForm) }}
+    </div>
+{% endblock %}
